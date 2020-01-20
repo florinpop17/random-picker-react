@@ -13,9 +13,23 @@ import './App.css';
 // button (top) -> add to list ✅
 // button (bottom) -> trigger the randomizer ✅
 
+const defaultItems = JSON.parse(localStorage.getItem('items')) || [];
+
+const storeToStorage = items => {
+	localStorage.setItem('items', JSON.stringify(items));
+};
+
 function App() {
-	const [items, setItems] = useState([]);
+	const [items, setItems] = useState(defaultItems);
 	const [inputValue, setInputValue] = useState('');
+
+	const updateItems = newItems => {
+		// updated Items in LocalStorage
+		storeToStorage(newItems);
+
+		// update State
+		setItems(newItems);
+	};
 
 	const handleSubmit = e => {
 		e.preventDefault();
@@ -28,8 +42,8 @@ function App() {
 
 			const newItems = [...items, newItem];
 
+			updateItems(newItems);
 			setInputValue('');
-			setItems(newItems);
 		}
 	};
 
@@ -48,13 +62,13 @@ function App() {
 				: { ...item, selected: false }
 		);
 
-		setItems(newItems);
+		updateItems(newItems);
 	};
 
 	const removeItem = i => {
 		const newItems = items.filter((_, idx) => idx !== i);
 
-		setItems(newItems);
+		updateItems(newItems);
 	};
 
 	return (
