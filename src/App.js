@@ -13,27 +13,8 @@ import './App.css';
 // button (top) -> add to list ✅
 // button (bottom) -> trigger the randomizer ✅
 
-const defaultItems = [
-	{
-		text: 'Option 1',
-		selected: false
-	},
-	{
-		text: 'Option 2',
-		selected: false
-	},
-	{
-		text: 'Option 3',
-		selected: false
-	},
-	{
-		text: 'Option 4',
-		selected: true
-	}
-];
-
 function App() {
-	const [items, setItems] = useState(defaultItems);
+	const [items, setItems] = useState([]);
 	const [inputValue, setInputValue] = useState('');
 
 	const handleSubmit = e => {
