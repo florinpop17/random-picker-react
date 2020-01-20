@@ -14,7 +14,7 @@ import './App.css';
 // button (bottom) -> trigger the randomizer ✅
 
 function App() {
-	const [items, setItems] = useState([]);
+	const [items, setItems] = useState([{ text: 'option 1', selected: false }]);
 	const [inputValue, setInputValue] = useState('');
 
 	const handleSubmit = e => {
@@ -49,8 +49,14 @@ function App() {
 		setItems(newItems);
 	};
 
+	const removeItem = i => {
+		const newItems = items.filter((_, idx) => idx !== i);
+
+		setItems(newItems);
+	};
+
 	return (
-		<div className='container bg-white mx-auto shadow-lg w-2/4 h-auto p-6'>
+		<div className='container bg-white mx-auto shadow-lg w-full sm:w-2/4 h-auto p-6'>
 			<form onSubmit={handleSubmit} className='flex'>
 				<input
 					className='py-2 px-4 border border-gray-500 flex-1'
@@ -69,9 +75,10 @@ function App() {
 			<ul>
 				{items.map((item, idx) => (
 					<li
-						className={`my-5 p-2 ${
+						className={`select-none cursor-pointer hover:bg-orange-300 my-5 p-2 ${
 							item.selected ? 'bg-orange-500 text-white' : ''
 						}`}
+						onDoubleClick={() => removeItem(idx)}
 						key={idx}>
 						{item.text}
 					</li>
@@ -79,11 +86,16 @@ function App() {
 			</ul>
 
 			{items.length > 0 && (
-				<button
-					className='bg-blue-500 w-full hover:bg-blue-700 text-white py-2 px-4'
-					onClick={randomizer}>
-					Randomize
-				</button>
+				<>
+					<button
+						className='bg-blue-500 w-full hover:bg-blue-700 text-white py-2 px-4'
+						onClick={randomizer}>
+						Randomize
+					</button>
+					<small className='text-gray-700 mt-3 inline-block'>
+						* Double click to remove an item
+					</small>
+				</>
 			)}
 		</div>
 	);
