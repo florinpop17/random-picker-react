@@ -14,7 +14,7 @@ import './App.css';
 // button (bottom) -> trigger the randomizer ✅
 
 function App() {
-	const [items, setItems] = useState([{ text: 'option 1', selected: false }]);
+	const [items, setItems] = useState([]);
 	const [inputValue, setInputValue] = useState('');
 
 	const handleSubmit = e => {
